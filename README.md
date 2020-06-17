@@ -1,0 +1,2 @@
+# Automapper.Sample
+Automapper.Sample
