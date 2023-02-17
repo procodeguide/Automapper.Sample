@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   dependency-submission:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Dotnet Info Before
@@ -22,6 +22,7 @@ jobs:
           # Optional SDK version(s) to use. If not provided, will install global.json version when available. Examples: 2.2.104, 3.1, 3.1.x, 3.x
           dotnet-version: 3.1.406
       - name: install dotnet-core-uninstall linux
+        continue-on-error: true
         if: runner.os != 'Windows'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -38,7 +39,7 @@ jobs:
         run: |
           #TODO this logic is broken - review log file
           gh release download --repo dotnet/cli-lab --pattern '*.msi'
-          write-host "${{vars.RUNNER_TEMP}}/install.log"
+          write-host "logfile path: ${{vars.RUNNER_TEMP}}/install.log"
           pwd
           msiexec /i dotnet-core-uninstall-1.6.0.msi /quiet /qn /norestart /log "${{vars.RUNNER_TEMP}}/install.log"
           cat "${{vars.RUNNER_TEMP}}/install.log"
