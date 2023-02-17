@@ -29,15 +29,15 @@ jobs:
           gh release download --repo dotnet/cli-lab --pattern 'dotnet-core-uninstall.tar.gz'
           tar -xvzf dotnet-core-uninstall.tar.gz
           chmod +x dotnet-core-uninstall
+          ./dotnet-core-uninstall list
       - name: install dotnet-core-uninstall windows
         if: runner.os == 'Windows'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release download --repo dotnet/cli-lab --pattern '*.msi'
-          msiexec.exe /i "dotnet-core-uninstall-1.6.0.msi"
-      - name: dotnet-core-uninstall list
-        run: ./dotnet-core-uninstall list
+          msiexec /i dotnet-core-uninstall-1.6.0.msi /quiet /qn /norestart /log install.log
+          & "$env:programfiles (x86)\dotnet-core-uninstall\dotnet-core-uninstall.exe" list
       - name: Dotnet Info After
         run: dotnet --info        
       - name: Build
