@@ -37,7 +37,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release download --repo dotnet/cli-lab --pattern '*.msi'
-          msiexec /i dotnet-core-uninstall-1.6.0.msi /quiet /qn /norestart /log install.log
+          msiexec /i dotnet-core-uninstall-1.6.0.msi /quiet /qn /norestart /log "${{GITHUB_WORKSPACE}}/install.log"
           cat install.log
           & "$env:programfiles (x86)\dotnet-core-uninstall\dotnet-core-uninstall.exe" list
       - name: Dotnet Info After
