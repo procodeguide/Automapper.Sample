@@ -1,4 +1,4 @@
-name: Component Detection
+name: Dependency SUbmission
 
 on:
   workflow_dispatch:
@@ -19,3 +19,11 @@ jobs:
         run: dotnet list package --vulnerable --include-transitive
       - name: Component detection 
         uses: jhutchings1/component-detection-action@v0.0.1
+      - name: Run Trivy in GitHub SBOM mode and submit results to Dependency Snapshots
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          format: 'github'
+          output: 'dependency-results.sbom.json'
+          #image-ref: '.'
+          github-pat: '${{ secrets.GITHUB_TOKEN }}'
