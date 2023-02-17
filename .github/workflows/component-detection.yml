@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Dotnet Info
+        run: dotnet --info
       - name: Build
         run: dotnet build
       - name: List Vulnerable
