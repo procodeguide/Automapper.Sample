@@ -36,7 +36,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          #TODO this logic is broken - review log file
           gh release download --repo dotnet/cli-lab --pattern '*.msi'
+          write-host "${{vars.GITHUB_WORKSPACE}}/install.log"
+          write-host pwd
           msiexec /i dotnet-core-uninstall-1.6.0.msi /quiet /qn /norestart /log "${{vars.GITHUB_WORKSPACE}}/install.log"
           cat install.log
           & "$env:programfiles (x86)\dotnet-core-uninstall\dotnet-core-uninstall.exe" list
@@ -50,6 +53,7 @@ jobs:
         if: runner.os != 'Windows'
         uses: jhutchings1/component-detection-action@v0.0.1
       - name: Run Trivy in GitHub SBOM mode and submit results to Dependency Snapshots
+        if: runner.os != 'Windows'
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: 'fs'
