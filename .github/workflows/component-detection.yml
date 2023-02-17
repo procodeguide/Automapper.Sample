@@ -48,8 +48,9 @@ jobs:
         run: dotnet --info        
       - name: Build
         run: dotnet build
-      - name: List Vulnerable
-        run: dotnet list package --vulnerable --include-transitive
+      #only works on new SDK - not old with global.json defined!
+      #- name: List Vulnerable
+      #  run: dotnet list package --vulnerable --include-transitive
       - name: Component detection 
         if: runner.os != 'Windows'
         uses: jhutchings1/component-detection-action@v0.0.1
