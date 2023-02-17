@@ -47,7 +47,7 @@ jobs:
       - name: List Vulnerable
         run: dotnet list package --vulnerable --include-transitive
       - name: Component detection 
-        if: runner.os == 'Windows'
+        if: runner.os != 'Windows'
         uses: jhutchings1/component-detection-action@v0.0.1
       - name: Run Trivy in GitHub SBOM mode and submit results to Dependency Snapshots
         uses: aquasecurity/trivy-action@master
