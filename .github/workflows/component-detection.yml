@@ -26,6 +26,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release download --repo dotnet/cli-lab --pattern 'dotnet-core-uninstall.tar.gz'
+          tar -xvzf dotnet-core-uninstall.tar.gz
       - name: dotnet-core-uninstall list
         run: dotnet-core-uninstall list
       - name: Dotnet Info After
