@@ -28,7 +28,7 @@ jobs:
           gh release download --repo dotnet/cli-lab --pattern 'dotnet-core-uninstall.tar.gz'
           tar -xvzf dotnet-core-uninstall.tar.gz
       - name: dotnet-core-uninstall list
-        run: dotnet-core-uninstall list
+        run: ./dotnet-core-uninstall list
       - name: Dotnet Info After
         run: dotnet --info        
       - name: Build
