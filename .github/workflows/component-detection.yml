@@ -38,10 +38,10 @@ jobs:
         run: |
           #TODO this logic is broken - review log file
           gh release download --repo dotnet/cli-lab --pattern '*.msi'
-          write-host "${{vars.GITHUB_WORKSPACE}}/install.log"
-          write-host pwd
-          msiexec /i dotnet-core-uninstall-1.6.0.msi /quiet /qn /norestart /log "${{vars.GITHUB_WORKSPACE}}/install.log"
-          cat install.log
+          write-host "${{vars.RUNNER_TEMP}}/install.log"
+          pwd
+          msiexec /i dotnet-core-uninstall-1.6.0.msi /quiet /qn /norestart /log "${{vars.RUNNER_TEMP}}/install.log"
+          cat "${{vars.RUNNER_TEMP}}/install.log"
           & "$env:programfiles (x86)\dotnet-core-uninstall\dotnet-core-uninstall.exe" list
       - name: Dotnet Info After
         run: dotnet --info        
