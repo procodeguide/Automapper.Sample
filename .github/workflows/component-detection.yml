@@ -32,11 +32,13 @@ jobs:
           ./dotnet-core-uninstall list
       - name: install dotnet-core-uninstall windows
         if: runner.os == 'Windows'
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release download --repo dotnet/cli-lab --pattern '*.msi'
           msiexec /i dotnet-core-uninstall-1.6.0.msi /quiet /qn /norestart /log install.log
+          cat install.log
           & "$env:programfiles (x86)\dotnet-core-uninstall\dotnet-core-uninstall.exe" list
       - name: Dotnet Info After
         run: dotnet --info        
