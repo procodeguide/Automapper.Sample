@@ -22,6 +22,8 @@ jobs:
           # Optional SDK version(s) to use. If not provided, will install global.json version when available. Examples: 2.2.104, 3.1, 3.1.x, 3.x
           dotnet-version: 3.1.406
       - name: install dotnet-core-uninstall
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh release download --repo dotnet/cli-lab --pattern 'dotnet-core-uninstall.tar.gz'
       - name: dotnet-core-uninstall list
